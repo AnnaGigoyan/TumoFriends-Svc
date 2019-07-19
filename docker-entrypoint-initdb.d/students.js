@@ -11,14 +11,24 @@ db.students.insertMany([{
   ],
   "location": "Yerevan"
 }, {
-  "email": "mesrobk2@gmail.com",
-  "firstName": "Martin",
-  "lastName": "Kyurkchyan",
+  "email": "anna.gigoyan.y@tumo.org",
+  "firstName": "Anna",
+  "lastName": "Gigoyan",
   "password": "password",
   "learningTargets": [
     "Game Development",
   ],
-  "location": "Gyumri"
+  "location": "Yerevan"
+},
+{
+  "email": "anna.gigoyan.y@tumo.org",
+  "firstName": "Anahit",
+  "lastName": "Gigoyan",
+  "password": "anahit",
+  "learningTargets": [
+    "Filmmaking",
+  ],
+  "location": "Paris"
 }
 ])
 
