@@ -12,6 +12,40 @@ function connect(server) {
 function usersNamespace(io) {
   const users = io.of('/users');
   users.on('connection', socket => {
+    socket.on('login', user => {
+      socket.join(user.email);
+
+      db.getClient().collection("students").findOneAndUpdate(
+        {email: user.email},
+        {$set: {'loggedIN' : true}},
+        {returnOriginal: false},
+        function(err, results){
+          if(err) {
+            socket.emit('list error', err);
+          }else if(results.value == null){
+            socket.emit('list error',{error:"Students with email"})
+          }else{
+            users.emit('logged in',results.value);
+          }
+        });
+    });
+    socket.on('logout', user => {
+      socket.join(user.email);
+
+      db.getClient().collection("students").findOneAndUpdate(
+        {email: user.email},
+        {$set: {'loggedIn' : false}},
+        {returnOriginal: false},
+        function(err, results){
+          if(err) {
+            socket.emit('list error', err);
+          }else if(results.value == null){
+            socket.emit('list error',{error:"Students with email"})
+          }else{
+            users.emit('logged out',results.value);
+          }
+        });
+    });
     // TODO: add listener for starting chat
     
     // TODO: add listener to chat message

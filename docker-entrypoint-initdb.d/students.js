@@ -20,16 +20,7 @@ db.students.insertMany([{
   ],
   "location": "Yerevan"
 },
-{
-  "email": "anna.gigoyan.y@tumo.org",
-  "firstName": "Anahit",
-  "lastName": "Gigoyan",
-  "password": "anahit",
-  "learningTargets": [
-    "Filmmaking",
-  ],
-  "location": "Paris"
-}
+
 ])
 
 db.students.createIndex({ lastName: "text", firstName: "text", location: "text" })

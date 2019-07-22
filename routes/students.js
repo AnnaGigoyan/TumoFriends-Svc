@@ -7,9 +7,17 @@ var db = require('../db');
 /* Get a single student: req.user.username */
 router.get('/students/:email', passport.authenticate('basic', { session: false }),
   function(req, res, next) {
-   db.getClient().collection("students").findOne({email:  req.params.email},(err,results) => {
-    res.send(results);
-    });
+    db.getClient().collection('students').findOne({email: req.params.email},
+      function(err, results) {
+       if (err) {
+         res.status(500).send({error:err.message});
+       } else if(!results){
+         res.status(400).send({error: 'Student does not exists'}); 
+       }
+       else{
+         res.send(results);
+       }
+     }) 
     
   });
 
