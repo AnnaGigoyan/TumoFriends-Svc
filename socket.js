@@ -35,9 +35,22 @@ function usersNamespace(io) {
           }else if(results.value == null){
             socket.emit('list error',{error:"Students with email"})
           }else{
-            users.emit('logged in',results.value);
+            socket.emit('logged in',results.value);
           }
         });
+    });
+
+    socket.on('editor-message', (toUser, fromUser, message) => {
+      console.log(fromUser, message);
+      if (toUser) {
+        users.in(toUser.email).emit('editor-message', fromUser, message);
+      }
+    });
+
+    socket.on('drawing-message', (toUser, fromUser, message) => {
+      if (toUser) {
+        users.in(toUser.email).emit('drawing-message', fromUser, message);
+      }
     });
     socket.on('logout', user => {
       socket.join(user.email);
